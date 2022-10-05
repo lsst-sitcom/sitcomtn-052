@@ -1,1 +1,5 @@
 _build/
+lsstbib/
+_static/burndown*.png
+_static/graph_06C.??.png
+_static/graph_06C.??.png.dot

@@ -19,13 +19,13 @@ ALLSPHINXOPTS   = -d $(BUILDDIR)/doctrees $(PAPEROPT_$(PAPER)) $(SPHINXOPTS) .
 # the i18n builder cannot share the environment and doctrees with the others
 I18NSPHINXOPTS  = $(PAPEROPT_$(PAPER)) $(SPHINXOPTS) .
 
-.PHONY: index.rst _static/burndownsitcomsum.png help clean html epub changes linkcheck refresh-bib
+.PHONY: index.rst _static/burndown.png help clean html epub changes linkcheck refresh-bib
 
 index.rst: bin/generate_dmtn.py refresh-bib
 	PYTHONPATH=milestones python3 bin/generate_dmtn.py
 
-_static/burndownsitcomsum.png:
-	PYTHONPATH=milestones python3 milestones/milestones.py burndown --prefix="SIT COM SUM"  --output=_static/burndownsitcomsum.png
+_static/burndown.png:
+	PYTHONPATH=milestones python3 milestones/milestones.py burndown --prefix="SIT COM SUM"  --output=_static/burndown.png
 
 _static/graph_%.png:
 	PYTHONPATH=milestones python3 milestones/milestones.py graph --wbs=$* --output=$@.dot
@@ -41,9 +41,9 @@ help:
 clean:
 	rm -rf $(BUILDDIR)/*
 	git checkout index.rst
-	rm -f _static/burndownsitcomsum.png
+	rm -f _static/burndown.png
 
-html: index.rst _static/burndownsitcomsum.png _static/graph_06C.00.png _static/graph_06C.01.png _static/graph_06C.02.png 
+html: index.rst _static/burndown.png _static/graph_06C.00.png _static/graph_06C.01.png _static/graph_06C.02.png 
 	$(SPHINXBUILD) -b html $(ALLSPHINXOPTS) $(BUILDDIR)/html
 	@echo
 	@echo "Build finished. The HTML pages are in $(BUILDDIR)/html."
