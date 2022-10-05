@@ -2,7 +2,7 @@
 #
 
 # You can set these variables from the command line.
-SPHINXOPTS    = -W --keep-going -n
+SPHINXOPTS    = -n
 SPHINXBUILD   = sphinx-build
 PAPER         =
 BUILDDIR      = _build
@@ -19,7 +19,17 @@ ALLSPHINXOPTS   = -d $(BUILDDIR)/doctrees $(PAPEROPT_$(PAPER)) $(SPHINXOPTS) .
 # the i18n builder cannot share the environment and doctrees with the others
 I18NSPHINXOPTS  = $(PAPEROPT_$(PAPER)) $(SPHINXOPTS) .
 
-.PHONY: help clean html epub changes linkcheck refresh-bib
+.PHONY: index.rst _static/burndownsitcomsum.png help clean html epub changes linkcheck refresh-bib
+
+index.rst: bin/generate_dmtn.py refresh-bib
+	PYTHONPATH=milestones python3 bin/generate_dmtn.py
+
+_static/burndownsitcomsum.png:
+	PYTHONPATH=milestones python3 milestones/milestones.py burndown --prefix="SIT COM SUM"  --output=_static/burndownsitcomsum.png
+
+_static/graph_%.png:
+	PYTHONPATH=milestones python3 milestones/milestones.py graph --wbs=$* --output=$@.dot
+	dot -Tpng $@.dot > $@
 
 help:
 	@echo "Please use \`make <target>' where <target> is one of"
@@ -30,8 +40,10 @@ help:
 
 clean:
 	rm -rf $(BUILDDIR)/*
+	git checkout index.rst
+	rm -f _static/burndownsitcomsum.png
 
-html:
+html: index.rst _static/burndownsitcomsum.png _static/graph_06C.00.png _static/graph_06C.01.png _static/graph_06C.02.png 
 	$(SPHINXBUILD) -b html $(ALLSPHINXOPTS) $(BUILDDIR)/html
 	@echo
 	@echo "Build finished. The HTML pages are in $(BUILDDIR)/html."
@@ -53,6 +65,7 @@ linkcheck:
 	      "or in $(BUILDDIR)/linkcheck/output.txt."
 
 refresh-bib:
+	mkdir -p lsstbib
 	refresh-lsst-bib -d lsstbib
 	@echo
 	@echo "Commit the new bibliographies: git add lsstbib && git commit -m \"Update bibliographies.\""
