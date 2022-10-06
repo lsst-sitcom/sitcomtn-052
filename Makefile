@@ -22,13 +22,13 @@ I18NSPHINXOPTS  = $(PAPEROPT_$(PAPER)) $(SPHINXOPTS) .
 .PHONY: index.rst _static/burndown.png help clean html epub changes linkcheck refresh-bib
 
 index.rst: bin/generate_dmtn.py refresh-bib
-	PYTHONPATH=milestones python3 bin/generate_dmtn.py
+	PYTHONPATH=milestones python bin/generate_dmtn.py
 
 _static/burndown.png:
-	PYTHONPATH=milestones python3 milestones/milestones.py burndown --prefix="SIT COM SUM"  --output=_static/burndown.png
+	PYTHONPATH=milestones python milestones/milestones.py burndown --prefix="SIT COM SUM"  --output=_static/burndown.png
 
 _static/graph_%.png:
-	PYTHONPATH=milestones python3 milestones/milestones.py graph --wbs=$* --output=$@.dot
+	PYTHONPATH=milestones python milestones/milestones.py graph --wbs=$* --output=$@.dot
 	dot -Tpng $@.dot > $@
 
 help:
