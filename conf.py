@@ -4,6 +4,3 @@
 # see metadata.yaml in this repo to update document-specific metadata
 
 from documenteer.conf.technote import * # noqa: F401, F403
-
-html_logo = '_static/rubin_logo_white.png'
-
