@@ -25,8 +25,14 @@ I18NSPHINXOPTS  = $(PAPEROPT_$(PAPER)) $(SPHINXOPTS) .
 index.rst: bin/generate_dmtn.py 
 	PYTHONPATH=milestones python3 bin/generate_dmtn.py
 
+
+
+
 _static/burndown.png:
 	PYTHONPATH=milestones python3 milestones/milestones.py burndown --prefix="SIT COM SUM"  --output=_static/burndown.png
+	PYTHONPATH=milestones python3 milestones/milestones.py burndown --prefix="SUM"  --output=_static/burndownSUM.png
+	PYTHONPATH=milestones python3 milestones/milestones.py burndown --prefix="SIT"  --output=_static/burndownSIT.png
+	PYTHONPATH=milestones python3 milestones/milestones.py burndown --prefix="COM"  --output=_static/burndownCOM.png
 
 _static/graph_%.png:
 	PYTHONPATH=milestones python3 milestones/milestones.py graph --wbs=$* --output=$@.dot
@@ -44,7 +50,7 @@ clean:
 	git checkout index.rst
 	rm -f _static/burndown.png
 
-html: index.rst _static/burndown.png _static/graph_06C.00.png _static/graph_06C.01.png _static/graph_06C.02.png 
+html: index.rst _static/burndown.png _static/graph_06C.00.png _static/graph_06C.01.png _static/graph_06C.02.png  
 	$(SPHINXBUILD) -b html $(ALLSPHINXOPTS) $(BUILDDIR)/html
 	mv $(BUILDDIR)/html/_static/rubin_logo.png $(BUILDDIR)/html/_static/lsst-logo-dark.svg
 	

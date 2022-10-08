@@ -231,9 +231,10 @@ def generate_dmtn(milestones, wbs):
                 f"are late relative to the baseline schedule, while "
                 f"the remainder are scheduled for the future."
             )
-        with my_section.figure("_static/burndown.png") as f:
-            with f.paragraph() as p:
-                p.write_line("Milestone completion as a function of date.")
+        for bd in ["", "SIT", "COM", "SUM"]:
+            with my_section.figure(f"_static/burndown{bd}.png") as f:
+                with f.paragraph() as p:
+                    p.write_line(f"{bd} Milestone completion as a function of date.")
 
     with doc.section("Currently overdue milestones") as my_section:
         overdue_milestones = [
@@ -243,14 +244,18 @@ def generate_dmtn(milestones, wbs):
         ]
 
         if overdue_milestones:
-            with my_section.bullet_list() as my_list:
-                for ms in sorted(overdue_milestones, key=lambda ms: ms.wbs + ms.code):
-                    with my_list.bullet() as b:
-                        with b.paragraph() as p:
-                            p.write_line(
-                                f"`{ms.code}`_: {ms.name} "
-                                f"[Due {ms.due.strftime('%Y-%m-%d')}]"
-                            )
+            for msprefix in ["SIT","COM","SUM"]:
+                with my_section.paragraph() as p:
+                    p.write_line(f"Overdue {msprefix} milestones")
+                with my_section.bullet_list() as my_list:
+                    for ms in sorted(overdue_milestones, key=lambda ms: ms.wbs + ms.code):
+                        if ms.code.startswith(msprefix):
+                            with my_list.bullet() as b:
+                                with b.paragraph() as p:
+                                    p.write_line(
+                                        f"`{ms.code}`_: {ms.name} "
+                                        f"[Due {ms.due.strftime('%Y-%m-%d')}]"
+                                    )
         else:
             with my_section.paragraph() as p:
                 p.write_line("None.")
