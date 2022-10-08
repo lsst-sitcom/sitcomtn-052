@@ -38,8 +38,6 @@ jobs:
 
       - name: Build
         run: |
-          mkdir _static
-          ls
           PYTHONPATH=milestones make html
 
       - name: Upload
