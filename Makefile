@@ -29,10 +29,10 @@ index.rst: bin/generate_dmtn.py
 
 
 _static/burndown.png:
-	PYTHONPATH=milestones python3 milestones/milestones.py burndown --prefix="SIT COM SUM"  --output=_static/burndown.png
-	PYTHONPATH=milestones python3 milestones/milestones.py burndown --prefix="SUM"  --output=_static/burndownSUM.png
-	PYTHONPATH=milestones python3 milestones/milestones.py burndown --prefix="SIT"  --output=_static/burndownSIT.png
-	PYTHONPATH=milestones python3 milestones/milestones.py burndown --prefix="COM"  --output=_static/burndownCOM.png
+	PYTHONPATH=milestones python3 milestones/milestones.py burndown --prefix="SIT COM SUM"  --output=_static/burndown.png --months=3
+	PYTHONPATH=milestones python3 milestones/milestones.py burndown --prefix="SUM"  --output=_static/burndownSUM.png --months=3
+	PYTHONPATH=milestones python3 milestones/milestones.py burndown --prefix="SIT"  --output=_static/burndownSIT.png --months=3
+	PYTHONPATH=milestones python3 milestones/milestones.py burndown --prefix="COM"  --output=_static/burndownCOM.png --months=3
 
 _static/graph_%.png:
 	PYTHONPATH=milestones python3 milestones/milestones.py graph --wbs=$* --output=$@.dot
