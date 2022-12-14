@@ -27,6 +27,9 @@ index.rst: bin/generate_dmtn.py
 
 
 
+_static/blockschedule.pdf:
+	PYTHONPATH=milestones python3 milestones/milestones.py blockschedule --start-date -20 --output=_static/blockschedule.pdf 
+	PYTHONPATH=milestones python3 milestones/milestones.py blockschedule --start-date -20 --output=_static/blockschedule.png
 
 _static/burndown.png:
 	PYTHONPATH=milestones python3 milestones/milestones.py burndown --prefix="SIT COM SUM"  --output=_static/burndown.png --months=3
@@ -49,10 +52,12 @@ clean:
 	rm -rf $(BUILDDIR)/*
 	git checkout index.rst
 	rm -f _static/burndown.png
+	rm -f _static/block*
 
-html: index.rst _static/burndown.png _static/graph_06C.00.png _static/graph_06C.01.png _static/graph_06C.02.png  
+html: index.rst _static/burndown.png _static/graph_06C.00.png _static/graph_06C.01.png _static/graph_06C.02.png  _static/blockschedule.pdf
 	$(SPHINXBUILD) -b html $(ALLSPHINXOPTS) $(BUILDDIR)/html
 	mv $(BUILDDIR)/html/_static/rubin_logo.png $(BUILDDIR)/html/_static/lsst-logo-dark.svg
+	mv _static/blockschedule.pdf $(BUILDDIR)/html
 	
 	@echo
 	@echo "Build finished. The HTML pages are in $(BUILDDIR)/html."

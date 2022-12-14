@@ -99,7 +99,7 @@ class BulletListItem(TextAccumulator):
         indented_result = textwrap.indent(
             self._buffer.getvalue(), " " * (len(line_start) + 1)
         )
-        return line_start + indented_result[len(line_start) :]
+        return line_start + indented_result[len(line_start):]
 
 
 @add_context("bullet", BulletListItem)
@@ -208,6 +208,10 @@ def generate_dmtn(milestones, wbs):
             )
 
     with doc.section("Summary") as my_section:
+        with my_section.figure("_static/blockschedule.png") as f:
+            with f.paragraph() as p:
+                p.write_line("Current block schedule. `Download the PDF of this Block Schedule here."
+                             " <./blockschedule.pdf>`_")
         with my_section.paragraph() as p:
             dm_milestones = [ms for ms in milestones if ms.wbs.startswith(wbs)]
             levels = [ms.level for ms in dm_milestones]
@@ -244,7 +248,7 @@ def generate_dmtn(milestones, wbs):
         ]
 
         if overdue_milestones:
-            for msprefix in ["SIT","COM","SUM"]:
+            for msprefix in ["SIT", "COM", "SUM"]:
                 with my_section.paragraph() as p:
                     p.write_line(f"Overdue {msprefix} milestones")
                 with my_section.bullet_list() as my_list:
@@ -329,7 +333,7 @@ def generate_dmtn(milestones, wbs):
                             if ms.test_spec or ms.jira_testplan:
                                 with my_list.bullet() as my_bullet:
                                     with my_bullet.paragraph() as p:
-                                        p.write_line(f"**Test specification:**")
+                                        p.write_line("**Test specification:**")
                                         if ms.test_spec:
                                             p.write_line(add_rst_citations(f"{ms.test_spec}"))
                                         else:
@@ -348,7 +352,7 @@ def generate_dmtn(milestones, wbs):
                                             f"**Completed:** {ms.completed.strftime('%Y-%m-%d')}"
                                         )
                                     else:
-                                        p.write_line(f"**Completion pending**")
+                                        p.write_line("**Completion pending**")
                                     if ms.jira:
                                         p.write_line(f":jirab:`{ms.jira}`")
                         if ms.description:
