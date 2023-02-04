@@ -25,7 +25,6 @@ I18NSPHINXOPTS  = $(PAPEROPT_$(PAPER)) $(SPHINXOPTS) .
 index.rst: bin/generate_dmtn.py 
 	PYTHONPATH=milestones python3 bin/generate_dmtn.py
 
-
 _static/report.csv:
 	PYTHONPATH=milestones python3 milestones/milestones.py report --output=_static/report.csv 
 
