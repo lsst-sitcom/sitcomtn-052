@@ -26,6 +26,8 @@ index.rst: bin/generate_dmtn.py
 	PYTHONPATH=milestones python3 bin/generate_dmtn.py
 
 
+_static/report.csv:
+	PYTHONPATH=milestones python3 milestones/milestones.py report --output=_static/report.csv 
 
 _static/blockschedule.pdf:
 	PYTHONPATH=milestones python3 milestones/milestones.py blockschedule --start-date -20 --output=_static/blockschedule.pdf 
@@ -54,10 +56,11 @@ clean:
 	rm -f _static/burndown.png
 	rm -f _static/block*
 
-html: index.rst _static/burndown.png _static/graph_06C.00.png _static/graph_06C.01.png _static/graph_06C.02.png  _static/blockschedule.pdf
+html: index.rst _static/burndown.png _static/graph_06C.00.png _static/graph_06C.01.png _static/graph_06C.02.png  _static/blockschedule.pdf  _static/report.csv
 	$(SPHINXBUILD) -b html $(ALLSPHINXOPTS) $(BUILDDIR)/html
 	mv $(BUILDDIR)/html/_static/rubin_logo.png $(BUILDDIR)/html/_static/lsst-logo-dark.svg
 	mv _static/blockschedule.pdf $(BUILDDIR)/html
+	mv _static/report.csv $(BUILDDIR)/html
 	
 	@echo
 	@echo "Build finished. The HTML pages are in $(BUILDDIR)/html."
