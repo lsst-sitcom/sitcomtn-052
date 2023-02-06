@@ -206,6 +206,9 @@ def generate_dmtn(milestones, wbs):
                 f"This corresponds to the status recorded in the project "
                 f"controls system for {p6_date.strftime('%B %Y')}."
             )
+            p.write_line(
+                f"`Download the report.csv here. <./report.csv>`_"
+            )
 
     with doc.section("Summary") as my_section:
         with my_section.figure("_static/blockschedule.png") as f:
