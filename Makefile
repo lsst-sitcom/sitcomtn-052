@@ -1,4 +1,4 @@
-BUILDDIR='_build'
+BUILDDIR = _build
 .PHONY:
 init:
 	pip install tox pre-commit
@@ -51,7 +51,7 @@ _static/graph_%.png:
 
 
 html: index.rst _static/burndown.png _static/graph_06C.00.png _static/graph_06C.01.png _static/graph_06C.02.png  _static/blockschedule.pdf  _static/report.csv
+	tox run -e html
 	cp  _static/blockschedule.pdf $(BUILDDIR)/html
 	cp  _static/report.csv $(BUILDDIR)/html
-	tox run -e html
 
