@@ -243,6 +243,10 @@ def generate_dmtn(milestones, wbs):
                 with f.paragraph() as p:
                     p.write_line(f"{bd} Milestone completion as a function of date.")
 
+        with my_section.figure(f"_static/burndownTS.png") as f:
+           with f.paragraph() as p:
+             p.write_line(f"Telescope and Site  Milestone completion as a function of date.")
+
     with doc.section("Currently overdue milestones") as my_section:
         overdue_milestones = [
             ms
